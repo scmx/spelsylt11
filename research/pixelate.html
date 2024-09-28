@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Experiment pixelate image, file upload or camera stream</title>
+  </head>
+  <body>
+    <img
+      id="avatar_image"
+      src="../assets/avatar.jpeg"
+      alt="Avatar"
+      style="width: 100px; height: 100px"
+    />
+    <div>
+      <input id="range_input" type="range" min="16" max="400" value="32" />
+      <span id="range_span"></span>
+      <input id="file_input" type="file" accept="image/*" />
+    </div>
+    <canvas
+      id="canvas"
+      style="width: 400px; height: 400px; image-rendering: pixelated"
+    ></canvas>
+    <button id="camera_button" type="button">Camera</button>
+    <video id="camera_video" style="transform: scaleX(-1)"></video>
+
+    <script type="module" defer>
+      const ctx = canvas.getContext("2d");
+      let stream;
+      function render() {
+        canvas.width = Number(range_input.value);
+        canvas.height = canvas.width;
+        ctx.save();
+        if (stream?.active) {
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+          ctx.drawImage(camera_video, 0, 0, canvas.width, canvas.height);
+        } else {
+          ctx.drawImage(avatar_image, 0, 0, canvas.width, canvas.height);
+        }
+        ctx.restore();
+        requestAnimationFrame(render);
+      }
+      addEventListener("load", () => requestAnimationFrame(render));
+
+      range_input.addEventListener("input", (event) => {
+        range_span.textContent = event.target.value;
+      });
+      range_span.textContent = range_input.value;
+
+      file_input.addEventListener("change", (event) => {
+        avatar_image.src = URL.createObjectURL(event.target.files[0]);
+      });
+
+      async function initCamera() {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 400, height: 400, facingMode: "user" },
+        });
+
+        camera_video.srcObject = stream;
+        camera_video.play();
+      }
+      camera_button.addEventListener("click", initCamera);
+    </script>
+  </body>
+</html>
