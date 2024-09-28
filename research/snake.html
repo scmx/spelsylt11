@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <canvas id="game_canvas"></canvas>
+    <script type="module">
+      game_canvas.width = 400;
+      game_canvas.height = 400;
+      const ctx = game_canvas.getContext("2d");
+      const snake = [
+        { x: 10, y: 10 },
+        { x: 9, y: 10 },
+      ];
+
+      function render() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, game_canvas.width, game_canvas.height);
+        for (const part of snake) {
+          ctx.fillStyle = "green";
+          ctx.fillRect(part.x * 20, part.y * 20, 20, 20);
+        }
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+
+      setInterval(() => {
+        const dir = { x: snake[0].x - snake[1].x, y: snake[0].y - snake[1].y };
+        const dirs = ["-1,0", "1,0", "0,-1", "0,1"];
+        dirs.splice(dirs.indexOf(`${-dir.x},${-dir.y}`), 1);
+        const [dirX, dirY] = dirs[Math.floor(Math.random() * dirs.length)]
+          .split(",")
+          .map(Number);
+        const newDir = { x: dirX, y: dirY };
+
+        const head = { x: snake[0].x + newDir.x, y: snake[0].y + newDir.y };
+        snake.unshift(head);
+        if (Math.random < 0.5) snake.pop();
+      }, 1000);
+    </script>
+  </body>
+</html>
