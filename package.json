@@ -1,14 +1,12 @@
 {
-  "name": "spelsylt11",
-  "version": "1.0.0",
-  "description": "An upcoming game jam experiment for Kodsnacks Tvåveckorssylt #11 https://itch.io/jam/spelsylt11",
-  "main": "main.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite dev --host"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "vite-plugin-mkcert": "^1.17.6"
   }
 }
