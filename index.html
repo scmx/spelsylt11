@@ -11,36 +11,86 @@
     <link rel="icon" href="assets/logo-64x64.png" />
     <link rel="apple-touch-icon" href="assets/logo-512x512.png" />
     <link rel="manifest" />
-    <link href="style.css" rel="stylesheet" />
-
-    <script type="module">
-      document.querySelector("link[rel=manifest]").href =
-        `data:application/manifest+json,${encodeURIComponent(
-          JSON.stringify({
-            name: "Spelsylt 11 game",
-            short_name: "Spelsylt 11",
-            start_url: location.href,
-            background_color: "green",
-            theme_color: "green",
-            display: "fullscreen",
-            icons: [
-              {
-                type: "image/png",
-                sizes: "64x64",
-                src: `${location.href}/assets/logo-64x64.png`,
-              },
-              {
-                type: "image/png",
-                sizes: "64x64",
-                src: `${location.href}/assets/logo-512x512.png`,
-              },
-            ],
-          }),
-        )}`;
-    </script>
+    <link rel="stylesheet" href="src/style.css" />
+    <script type="module" src="src/manifest.js"></script>
   </head>
-  <body>
-    <canvas id="game_canvas"></canvas>
-    <script type="module" src="main.js"></script>
+  <body data-game-state="main_menu" data-camera="off">
+    <main id="game_wrapper">
+      <button id="menu_button" type="button" aria-label="Meny">☰</button>
+
+      <dialog id="menu_dialog">
+        <div id="menu_inner">
+          <div id="avatar_settings">
+            <div id="avatar_settings_preview"></div>
+            <div id="avatar_settings_controls">
+              <button
+                id="avatar_zoom_out"
+                type="button"
+                data-i18n-content="avatar_zoom_out"
+              ></button>
+              <button
+                id="avatar_zoom_in"
+                type="button"
+                data-i18n-content="avatar_zoom_in"
+              ></button>
+              <button id="avatar_pixelate_less" type="button">-</button>
+              <button id="avatar_pixelate_more" type="button">+</button>
+            </div>
+            <input hidden id="file_input" type="file" accept="image/*" />
+            <label
+              for="file_input"
+              id="avatar_file_label"
+              class="button"
+              data-i18n-content="avatar_file_label"
+            ></label>
+            <button
+              id="camera_freeze_button"
+              type="button"
+              data-i18n-content="camera_freeze_button"
+            ></button>
+            <button
+              id="camera_button"
+              type="button"
+              data-i18n-content="camera_start_button"
+            ></button>
+            <video id="camera_video" playsinline style="display: none"></video>
+          </div>
+          <div id="menu_content"></div>
+        </div>
+      </dialog>
+
+      <canvas id="game_canvas"></canvas>
+
+      <aside id="player_avatar">
+        <canvas id="avatar_canvas"></canvas>
+      </aside>
+    </main>
+
+    <img hidden id="avatar_image" src="assets/avatar.jpg" alt="Avatar" />
+
+    <template id="menu_start_template">
+      <h1 data-i18n-content="menu_start_heading"></h1>
+      <button
+        id="menu_start_button"
+        type="button"
+        data-i18n-content="menu_start_button"
+      ></button>
+    </template>
+
+    <template id="menu_pause_template">
+      <h1 data-i18n-content="menu_pause_heading"></h1>
+      <button
+        id="menu_resume_button"
+        type="button"
+        data-i18n-content="menu_resume_button"
+      ></button>
+      <button
+        id="menu_restart_button"
+        type="button"
+        data-i18n-content="menu_restart_button"
+      ></button>
+    </template>
+
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
