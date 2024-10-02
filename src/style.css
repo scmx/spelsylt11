@@ -100,8 +100,8 @@ body[data-camera="off"] #camera_freeze_button {
   /*transform-origin: 60% 25%;*/
 }
 #avatar_settings_preview {
-  width: 30cqw;
-  height: 30cqw;
+  width: min(30cqw, 30cqh);
+  height: min(30cqw, 30cqh);
   overflow: hidden;
   border: 0.5cqw solid #09cdda;
 }
