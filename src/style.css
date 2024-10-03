@@ -46,6 +46,9 @@ dialog,
 .button {
   text-align: center;
 }
+button:active {
+  background-color: #666;
+}
 #avatar dialog {
   padding: 2cqw;
 }
