@@ -10,6 +10,18 @@ export function setLanguage(value) {
   injectI18nContent(menu_dialog);
 }
 
+game_wrapper.addEventListener("pointerup", (event) => {
+  const target = event.target;
+  if (!target) return;
+  if (!target.tagName === "BUTTON") return;
+  const key = target.dataset.i18nContent;
+  if (!key) return;
+
+  const utterThis = new SpeechSynthesisUtterance(target.textContent);
+  utterThis.lang = languages[lang].speech;
+  speechSynthesis.speak(utterThis);
+});
+
 export function injectI18nContent(root) {
   function travel(element) {
     const key = element.dataset.i18nContent;

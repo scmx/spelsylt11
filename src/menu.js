@@ -2,7 +2,7 @@ import { receiveGameEvents } from "./events.js";
 import { game, gameStates } from "./game.js";
 import { injectI18nContent, setLanguage } from "./i18n.js";
 
-menu_button.addEventListener("pointerdown", () => {
+menu_button.addEventListener("pointerup", () => {
   console.log("menu_button");
   game.pause();
 });
@@ -32,10 +32,9 @@ function openStartMenu() {
   avatar_settings_preview.appendChild(avatar_canvas);
   menu_content.innerHTML = "";
   menu_content.appendChild(tmpl);
-  console.log(menu_start_button);
   document
     .querySelector("#menu_start_button")
-    .addEventListener("pointerdown", () => {
+    .addEventListener("pointerup", () => {
       game.start();
     });
   menu_dialog.showModal();
