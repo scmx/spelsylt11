@@ -1,10 +1,13 @@
 import sv from "./i18n.sv.js";
+import en from "./i18n.en.js";
 
-const languages = { sv };
+const languages = { sv, en };
 
 let lang = "sv";
 export function setLanguage(value) {
   lang = value;
+  document.documentElement.lang = value;
+  injectI18nContent(menu_dialog);
 }
 
 export function injectI18nContent(root) {
@@ -21,7 +24,7 @@ export function injectI18nContent(root) {
 
 export function translate(key) {
   if (!languages[lang]) throw new Error(`Language ${lang} not found`);
-  const translations = languages[lang];
+  const { translations } = languages[lang];
 
   if (translations[key]) return translations[key];
 

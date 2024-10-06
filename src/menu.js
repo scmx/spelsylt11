@@ -1,6 +1,6 @@
 import { receiveGameEvents } from "./events.js";
 import { game, gameStates } from "./game.js";
-import { injectI18nContent } from "./i18n.js";
+import { injectI18nContent, setLanguage } from "./i18n.js";
 
 menu_button.addEventListener("pointerdown", () => {
   console.log("menu_button");
@@ -48,11 +48,19 @@ function openPauseMenu() {
   avatar_settings_preview.appendChild(avatar_canvas);
   menu_content.innerHTML = "";
   menu_content.appendChild(tmpl);
-  menu_resume_button.addEventListener("pointerdown", () => {
+  menu_resume_button.addEventListener("pointerup", () => {
     game.resume();
   });
-  menu_restart_button.addEventListener("pointerdown", () => {
+  menu_restart_button.addEventListener("pointerup", () => {
     location.reload();
   });
   menu_dialog.showModal();
+}
+
+menu_lang_sv_button.addEventListener("pointerup", handleSetLanguage);
+menu_lang_en_button.addEventListener("pointerup", handleSetLanguage);
+
+function handleSetLanguage(event) {
+  if (!event.target) return;
+  setLanguage(event.target.value);
 }
