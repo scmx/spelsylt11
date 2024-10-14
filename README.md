@@ -1,6 +1,8 @@
 # spelsylt11
 
-An upcoming game jam experiment for Kodsnacks Tvåveckorssylt #11
+See the game in action: <https://scmx.github.io/spelsylt11/>.
+
+A game jam experiment for Kodsnacks Tvåveckorssylt #11
 <https://itch.io/jam/spelsylt11>
 
 ## Assets
@@ -20,3 +22,5 @@ An upcoming game jam experiment for Kodsnacks Tvåveckorssylt #11
   - Resized using magick <https://formulae.brew.sh/formula/imagemagick>
 
 - Font Departure Mono <https://departuremono.com/>
+
+- Sound effects from jsfxr <https://sfxr.me/>
