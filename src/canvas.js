@@ -1,37 +1,67 @@
 import { game } from "./game.js";
 import { resize } from "./resize.js";
 
-class Main {
-  constructor(ctx) {}
-  draw(ctx) {
-    ctx.fillStyle = "#282828";
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  }
-  update(delta) {}
-}
+const canvases = {
+  tiles: { size: 26, tileSize: 18, canvas: tiles_canvas },
+  worms: { size: 26, tileSize: 200, canvas: worms_canvas },
+};
 
 function init() {
-  const ctx = game_canvas.getContext("2d");
-  const main = new Main(ctx);
-  const delta = {};
+  const ctx = Object.fromEntries(
+    Object.entries(canvases).map(([name, { canvas }]) => [
+      name,
+      canvas.getContext("2d"),
+    ]),
+  );
+  const delta = { input: {} };
 
   let lastTime = performance.now();
   function animate(timeStamp) {
     delta.time = timeStamp - lastTime;
     lastTime = timeStamp;
 
-    main.draw(ctx);
-    game.draw(ctx);
+    ctx.tiles.fillStyle = "#282828";
+    ctx.tiles.fillRect(0, 0, ctx.tiles.canvas.width, ctx.tiles.canvas.height);
+
+    game.draw(ctx.tiles);
+    game.drawWorms(ctx.worms);
+
     if (game.state === "playing") {
-      main.update(delta);
       game.update(delta);
     }
 
     requestAnimationFrame(animate);
   }
 
-  console.log(game_canvas);
-  const handleResize = () => resize(game_wrapper, game_canvas);
+  addEventListener("keydown", (e) => {
+    switch (e.key) {
+      case "ArrowLeft":
+        delta.input.x = -1;
+        break;
+      case "ArrowRight":
+        delta.input.x = 1;
+        break;
+      case "Space":
+        delta.input.y = -1;
+        break;
+    }
+  });
+
+  addEventListener("keyup", (e) => {
+    switch (e.key) {
+      case "ArrowLeft":
+        delete delta.input.x;
+        break;
+      case "ArrowRight":
+        delete delta.input.x;
+        break;
+      case "Space":
+        delete delta.input.jump;
+        break;
+    }
+  });
+
+  const handleResize = () => resize(game_wrapper, canvases);
   addEventListener("resize", handleResize);
   addEventListener("orientationchange", handleResize);
   handleResize();

@@ -1,4 +1,5 @@
 import tilemap from "./tilemap.js";
+import { tilesets } from "../src/tilesets.js";
 
 function resize() {
   game_canvas.width = tilemap.width * tilemap.tilewidth;
@@ -9,21 +10,6 @@ function resize() {
 resize();
 addEventListener("resize", resize);
 
-const tilesets = {
-  Tiles: {
-    width: 20,
-    height: 9,
-    image: tilemap_image,
-  },
-  Character: {
-    width: 9,
-    height: 3,
-    image: tilemap_characters_image,
-  },
-};
-tilesets["Tiles (layer A)"] = tilesets.Tiles;
-tilesets["Tiles (layer B)"] = tilesets.Tiles;
-
 function init() {
   /** @type {CanvasRenderingContext2D} */
   const ctx = game_canvas.getContext("2d");
@@ -33,20 +19,20 @@ function init() {
       for (let i = 0; i < layer.data.length; i++) {
         const tileset = tilesets[layer.name];
         const tile = layer.data[i];
-        const sx = (tile - 28) % tileset.width;
-        const sy = Math.floor((tile - 28) / tileset.width);
+        const sx = (tile + tileset.tileoffset) % tileset.width;
+        const sy = Math.floor((tile + tileset.tileoffset) / tileset.width);
         const x = i % layer.width;
         const y = Math.floor(i / layer.width);
         ctx.drawImage(
           tileset.image,
-          sx * tilemap.tilewidth,
-          sy * tilemap.tileheight,
-          tilemap.tilewidth,
-          tilemap.tileheight,
-          x * tilemap.tilewidth,
-          y * tilemap.tileheight,
-          tilemap.tilewidth,
-          tilemap.tileheight,
+          sx * tileset.tilewidth,
+          sy * tileset.tileheight,
+          tileset.tilewidth,
+          tileset.tileheight,
+          x * tilemap.tilewidth + tileset.offset,
+          y * tilemap.tileheight + tileset.offset,
+          tileset.tilewidth,
+          tileset.tileheight,
         );
       }
     });

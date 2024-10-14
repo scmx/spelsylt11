@@ -1,10 +1,10 @@
 document.querySelector("link[rel=manifest]").href =
   `data:application/manifest+json,${encodeURIComponent(
     JSON.stringify({
-      name: "Spelsylt 11 game",
-      short_name: "Spelsylt 11",
+      name: "Maski - A spelsylt 11 game experiment",
+      short_name: "Maski sylt11",
       start_url: location.href,
-      background_color: "green",
+      background_color: "#282828",
       theme_color: "#282828",
       display: "fullscreen",
       icons: [

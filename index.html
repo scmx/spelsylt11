@@ -13,6 +13,8 @@
     <link rel="manifest" />
     <link rel="stylesheet" href="src/style.css" />
     <script type="module" src="src/manifest.js"></script>
+    <script src="https://sfxr.me/riffwave.js"></script>
+    <script src="https://sfxr.me/sfxr.js"></script>
   </head>
   <body data-game-state="main_menu" data-camera="off">
     <main id="game_wrapper">
@@ -56,7 +58,7 @@
             <video id="camera_video" playsinline style="display: none"></video>
           </div>
           <div id="menu_content"></div>
-          <div>
+          <div class="menu_languages">
             <button id="menu_lang_sv_button" type="button" value="sv">
               Svenska
             </button>
@@ -67,7 +69,8 @@
         </div>
       </dialog>
 
-      <canvas id="game_canvas"></canvas>
+      <canvas id="tiles_canvas"></canvas>
+      <canvas id="worms_canvas"></canvas>
 
       <aside id="player_avatar">
         <canvas id="avatar_canvas"></canvas>
@@ -75,6 +78,21 @@
     </main>
 
     <img hidden id="avatar_image" src="assets/avatar.jpg" alt="Avatar" />
+    <img
+      hidden
+      src="assets/tileset_kenney_pixel_platformer.png"
+      id="tileset_image"
+    />
+    <img
+      hidden
+      src="assets/spritesheet_characters_kenney_pixel_platformer.png"
+      id="spritesheet_characters_image"
+    />
+    <img
+      hidden
+      src="assets/spritesheet_snake_corgi_franks_laboratory_youtube.png"
+      id="spritesheet_snake_corgi_image"
+    />
 
     <template id="menu_start_template">
       <h1 data-i18n-content="menu_start_heading"></h1>

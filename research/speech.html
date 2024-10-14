@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spelsylt 11 speech research</title>
+  </head>
+
+  <body>
+    <h1>Text till tal</h1>
+
+    <button id="play_button" type="button">Button</button>
+
+    <script type="module">
+      speechSynthesis.getVoices();
+
+      function speak() {
+        const utterThis = new SpeechSynthesisUtterance("Hejsan");
+        utterThis.lang = "sv-SE";
+
+        speechSynthesis.speak(utterThis);
+      }
+
+      play_button.onpointerup = function (event) {
+        speak();
+      };
+    </script>
+  </body>
+</html>

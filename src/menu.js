@@ -11,7 +11,6 @@ openStartMenu();
 injectI18nContent(avatar_settings);
 
 receiveGameEvents(({ type, value }) => {
-  console.log(type, value);
   if (type === "state") {
     document.body.dataset.gameState = value;
     if (value === gameStates.start_menu) {
@@ -26,7 +25,6 @@ receiveGameEvents(({ type, value }) => {
 });
 
 function openStartMenu() {
-  console.log("openStartMenu");
   const tmpl = menu_start_template.content.cloneNode(true);
   injectI18nContent(tmpl);
   avatar_settings_preview.appendChild(avatar_canvas);
@@ -41,7 +39,6 @@ function openStartMenu() {
 }
 
 function openPauseMenu() {
-  console.log("openPauseMenu");
   const tmpl = menu_pause_template.content.cloneNode(true);
   injectI18nContent(tmpl);
   avatar_settings_preview.appendChild(avatar_canvas);

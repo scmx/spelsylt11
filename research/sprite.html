@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <style type="text/css">
+      body {
+        height: 100dvh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 3rem;
+        margin: 0;
+        background: #333;
+      }
+      canvas {
+        display: block;
+        image-rendering: pixelated;
+        border: 1rem solid #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas
+      id="green_canvas"
+      width="24"
+      height="24"
+      style="width: 240px; height: 240px"
+    ></canvas>
+    <canvas
+      id="blue_canvas"
+      width="24"
+      height="24"
+      style="width: 240px; height: 240px"
+    ></canvas>
+    <img
+      hidden
+      id="tilemap_characters_image"
+      src="../assets/spritesheet_characters_kenney_pixel_platformer.png"
+    />
+    <script type="module">
+      import { Sprite } from "../src/sprite.js";
+
+      const greenCtx = green_canvas.getContext("2d");
+      const blueCtx = blue_canvas.getContext("2d");
+      const green = new Sprite(tilemap_characters_image, {
+        size: 24,
+        startX: 0,
+        startY: 0,
+        countX: 2,
+        updater() {
+          this.offsetX = (this.offsetX + 1) % this.countX;
+        },
+      });
+      const blue = new Sprite(tilemap_characters_image, {
+        size: 24,
+        startX: 2,
+        startY: 0,
+        countX: 2,
+        updater() {
+          this.offsetX = (this.offsetX + 1) % this.countX;
+        },
+      });
+
+      const delta = {};
+      let lastTime = 0;
+      function animate(timeStamp) {
+        delta.time = timeStamp - lastTime;
+        lastTime = timeStamp;
+        green.draw(greenCtx, 0, 0, 24, 24);
+        blue.draw(blueCtx, 0, 0, 24, 24);
+        setTimeout(() => {
+          requestAnimationFrame(animate);
+          green.update(delta);
+          blue.update(delta);
+        }, 500);
+      }
+      requestAnimationFrame(animate);
+    </script>
+  </body>
+</html>

@@ -1,18 +1,20 @@
 export function resize(
   wrapper,
-  canvas,
+  canvases,
   { width = innerWidth, height = innerHeight } = {},
 ) {
   const minRatio = 4 / 3;
   const maxRatio = 852 / 393;
   const innerRatio = width / height;
   const ratio = Math.max(minRatio, Math.min(innerRatio, maxRatio));
-  const [w, h] =
+  let [w1, h1] =
     ratio >= innerRatio ? [width, width / ratio] : [height * ratio, height];
 
-  wrapper.style.width = `${w}px`;
-  wrapper.style.height = `${h}px`;
+  wrapper.style.width = `${w1}px`;
+  wrapper.style.height = `${h1}px`;
 
-  canvas.width = w;
-  canvas.height = h;
+  Object.entries(canvases).forEach(([, { canvas, size, tileSize }]) => {
+    canvas.width = size * tileSize;
+    canvas.height = canvas.width / ratio;
+  });
 }

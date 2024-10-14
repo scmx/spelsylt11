@@ -20,13 +20,19 @@ main {
   container: main / size;
   position: relative;
   background-color: #4d4;
-  margin-top: 2cqw;
   font-size: 1cqw;
 }
 canvas {
   display: block;
   width: 100cqw;
   height: 100cqh;
+  image-rendering: pixelated;
+}
+#tiles_canvas,
+#worms_canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 button,
 .button {
@@ -61,7 +67,13 @@ button:active {
   flex-direction: column;
   gap: 1cqw;
 }
+.menu_languages {
+  display: flex;
+  gap: 1cqw;
+  flex-direction: column;
+}
 #menu_button {
+  z-index: 1;
   position: absolute;
   top: 1cqw;
   right: 1cqw;
@@ -82,8 +94,8 @@ button:active {
   position: absolute;
   top: 1cqw;
   left: 1cqw;
-  width: 20cqw;
-  height: 20cqw;
+  width: 16cqw;
+  height: 16cqw;
   overflow: hidden;
   border: 0.5cqw solid #09cdda;
 }
